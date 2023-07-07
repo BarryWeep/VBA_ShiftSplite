@@ -1,0 +1,863 @@
+
+
+Sub listallToHelesbur()
+
+    Dim startone As Integer
+    Dim startTwo As Integer
+    
+    
+    startone = 2
+    startTwo = 2
+    
+    
+    Do Until startone > 1942
+    
+    
+    If Worksheets("asd").Cells(startone, 5).Value = "Helensberg" Or Worksheets("asd").Cells(startone, 3).Value = "Helensberg" Then
+    
+        If Worksheets("asd").Cells(startone, 9).Value <> "" Then
+        
+        Worksheets("allHele").Cells(startTwo, 3).Value = Worksheets("asd").Cells(startone, 3).Value
+        Worksheets("allHele").Cells(startTwo, 5) = Worksheets("asd").Cells(startone, 5)
+        Worksheets("allHele").Cells(startTwo, 9) = Format(Worksheets("asd").Cells(startone, 9), "h:mm")
+        Worksheets("allHele").Cells(startTwo, 11) = Format(Worksheets("asd").Cells(startone, 11), "h:mm")
+        Worksheets("allHele").Cells(startTwo, 12) = Worksheets("asd").Cells(startone, 12)
+        Worksheets("allHele").Cells(startTwo, 13) = Worksheets("asd").Cells(startone, 13)
+        startTwo = startTwo + 1
+        
+        End If
+        
+    
+    End If
+    
+    
+    
+    
+    startone = startone + 1
+    
+    Loop
+
+
+
+
+End Sub
+
+
+
+Sub cleandata()
+
+
+    Dim startone As Integer
+    
+    startone = 2
+    
+    
+    Do Until startone > 1942
+    
+        If IsEmpty(Cells(startone, 6).Value) Then
+        
+            Rows(startone).ClearContents
+        
+        End If
+        
+    
+    
+        startone = startone + 1
+    Loop
+
+
+
+End Sub
+
+
+
+
+Sub setupshiftover()
+
+
+    Dim startone As Integer
+    
+    startone = 1
+    
+    
+    Do Until startone > 1942
+    
+    
+    If Cells(startone, 5).Value = "Roster_Total" Then
+        startone = startone + 1
+    
+    ElseIf Cells(startone, 5).Value = "" Then
+    
+        Worksheets("asd").Cells(startone, 3).Value = Worksheets("asd").Cells(startone - 1, 5).Value
+        Worksheets("asd").Cells(startone, 5).Value = "Helensberg"
+        Worksheets("asd").Cells(startone + 1, 3).Value = "Helensberg"
+        Worksheets("asd").Cells(startone + 1, 5).Value = Worksheets("asd").Cells(startone + 2, 3).Value
+        Rows(startone).Interior.Color = RGB(255, 255, 0)
+        Rows(startone + 1).Interior.Color = RGB(255, 255, 0)
+    
+    End If
+    
+
+    
+    
+    startone = startone + 1
+    
+    Loop
+
+
+End Sub
+
+
+Sub findallrealted() ' no need
+
+
+    Dim startone As Integer
+    Dim startTwo As Integer
+    
+    Dim compareOne As String
+    Dim comparetwo As String
+    
+    
+    
+    startone = 2
+    startTwo = 2
+    
+    
+    Do Until startone > 1942
+    
+    If Cells(startone, 5).Value = "Roster_Total" Then
+        startone = startone + 1
+
+    
+    ElseIf Cells(startone, 6).Value = "" Then
+    
+        compareOne = Cells(startone, 3).Value
+        comparetwo = Cells(startone, 5).Value
+        
+        
+        startTwo = 2
+        
+        Do Until IsEmpty(Worksheets("allHele").Cells(startTwo, 3))
+        
+            If Worksheets("allHele").Cells(startTwo, 3) = compareOne And Worksheets("allHele").Cells(startTwo, 5) = comparetwo Then
+            
+                Worksheets("asd").Cells(startone, 3).Value = Worksheets("allHele").Cells(startTwo, 3).Value
+                Worksheets("asd").Cells(startone, 5).Value = Worksheets("allHele").Cells(startTwo, 5).Value
+                Worksheets("asd").Cells(startone, 9).Value = Worksheets("allHele").Cells(startTwo, 9).Value
+                Worksheets("asd").Cells(startone, 11).Value = Worksheets("allHele").Cells(startTwo, 11).Value
+                Worksheets("asd").Cells(startone, 12).Value = Worksheets("allHele").Cells(startTwo, 12).Value
+                Worksheets("asd").Cells(startone, 13).Value = Worksheets("allHele").Cells(startTwo, 13).Value
+                
+            
+                Exit Do
+            
+            End If
+            
+        
+            startTwo = startTwo + 1
+        Loop
+        
+        
+        compareOne = Cells(startone + 1, 3).Value
+        comparetwo = Cells(startone + 1, 5).Value
+        
+        
+        startTwo = 2
+        
+        Do Until IsEmpty(Worksheets("allHele").Cells(startTwo, 3))
+        
+            If Worksheets("allHele").Cells(startTwo, 3) = compareOne And Worksheets("allHele").Cells(startTwo, 5) = comparetwo Then
+            
+                
+                Worksheets("asd").Cells(startone + 1, 3).Value = Worksheets("allHele").Cells(startTwo, 3).Value
+                Worksheets("asd").Cells(startone + 1, 5).Value = Worksheets("allHele").Cells(startTwo, 5).Value
+                Worksheets("asd").Cells(startone + 1, 9).Value = Format(Worksheets("allHele").Cells(startTwo, 9).Value, "h:mm")
+                Worksheets("asd").Cells(startone + 1, 11).Value = Format(Worksheets("allHele").Cells(startTwo, 11).Value, "h:mm")
+                Worksheets("asd").Cells(startone + 1, 12).Value = Worksheets("allHele").Cells(startTwo, 12).Value
+                Worksheets("asd").Cells(startone + 1, 13).Value = Worksheets("allHele").Cells(startTwo, 13).Value
+                
+            
+                Exit Do
+            
+            End If
+            
+        
+            startTwo = startTwo + 1
+        Loop
+    
+    
+    End If
+    
+    
+    
+    startone = startone + 1
+    
+    Loop
+
+
+
+
+End Sub
+
+
+Sub fillupRosterNo()
+
+  Dim index As Integer
+   index = 2
+  
+  Do Until index > 1942
+
+    If Worksheets("asd").Cells(index, 1) = "" And Worksheets("asd").Cells(index, 3) <> "" Then
+    
+     Worksheets("asd").Cells(index, 1) = Worksheets("asd").Cells(index - 1, 1)
+    
+    End If
+    
+    
+    index = index + 1
+    
+  Loop
+  
+
+End Sub
+
+
+Sub calculation()
+
+ Dim changePointer As Integer
+ Dim entryrollnumber As Integer
+ Dim exitrollnumber As Integer
+ Dim filluprollnumber As Integer
+ 
+ 
+ Dim startone As Integer
+ 
+ 
+ changePointer = 0
+ startone = 2
+ 
+    
+ 
+ Do Until startone > 1942
+ 
+    If changePointer <> Cells(startone, 1).Value And Cells(startone, 1).Value <> "" Then
+    
+        changePointer = Cells(startone, 1).Value
+        entryrollnumber = startone
+    
+    End If
+    
+    
+    If Cells(startone, 3).Value <> "" And Cells(startone, 6).Value = "" Then
+    
+        filluprollnumber = startone
+    
+    End If
+    
+    
+    If changePointer <> Cells(startone, 1).Value And changePointer = Cells(startone - 1, 1).Value Then
+    
+        exitrollnumber = startone - 1
+        
+        
+        
+        'Format(,"h:mm")
+        Worksheets("asd").Cells(filluprollnumber - 1, 2).Value = Format(Worksheets("asd").Cells(filluprollnumber - 2, 6).Value, "h:mm")
+        Worksheets("asd").Cells(filluprollnumber - 1, 4).Value = Worksheets("asd").Cells(filluprollnumber - 2, 4).Value
+        Worksheets("asd").Cells(filluprollnumber - 1, 6).Value = Format(Worksheets("asd").Cells(filluprollnumber - 2, 6).Value + Worksheets("asd").Cells(exitrollnumber, 11), "h:mm")
+        Worksheets("asd").Cells(filluprollnumber - 1, 7).Value = Worksheets("asd").Cells(exitrollnumber - 2, 7).Value
+        Worksheets("asd").Cells(filluprollnumber - 1, 9).Value = "0:00"
+        Worksheets("asd").Cells(filluprollnumber - 1, 11).Value = Format(Worksheets("asd").Cells(exitrollnumber, 11), "h:mm")
+        Worksheets("asd").Cells(filluprollnumber - 1, 12).Value = 0
+        Worksheets("asd").Cells(filluprollnumber - 1, 13).Value = Worksheets("asd").Cells(exitrollnumber, 13).Value
+        
+        Worksheets("asd").Cells(filluprollnumber, 2).Value = Format(Worksheets("asd").Cells(filluprollnumber + 1, 2).Value - Worksheets("asd").Cells(entryrollnumber, 11).Value, "h:mm")
+        Worksheets("asd").Cells(filluprollnumber, 4).Value = Worksheets("asd").Cells(filluprollnumber - 2, 4).Value
+        Worksheets("asd").Cells(filluprollnumber, 6).Value = Format(Worksheets("asd").Cells(filluprollnumber + 1, 2).Value - Worksheets("asd").Cells(entryrollnumber, 9).Value, "h:mm")
+        Worksheets("asd").Cells(filluprollnumber, 7).Value = Worksheets("asd").Cells(exitrollnumber - 2, 7).Value
+        Worksheets("asd").Cells(filluprollnumber, 9).Value = Format(Worksheets("asd").Cells(entryrollnumber, 9), "h:mm")
+        Worksheets("asd").Cells(filluprollnumber, 11).Value = Format(Worksheets("asd").Cells(entryrollnumber, 11), "h:mm")
+        Worksheets("asd").Cells(filluprollnumber, 12).Value = 0
+        Worksheets("asd").Cells(filluprollnumber, 13).Value = Worksheets("asd").Cells(entryrollnumber, 13).Value
+        
+        
+        
+    
+        End If
+
+
+    startone = startone + 1
+
+  Loop
+
+
+End Sub
+
+    
+
+
+Sub calcualterosterTotall()
+
+    Dim startone As Integer
+    Dim reverseClock As Integer
+    Dim sumRange As Range
+    Dim trying As String
+    
+    
+    startone = 2
+    
+    
+    Do Until startone > 1942
+    
+    
+    If Cells(startone, 5).Value = "Roster_Total" Then
+        
+            
+         Rows(startone).Interior.Color = RGB(255, 0, 0)
+        reverseClock = startone - 1
+        
+        Do Until Cells(reverseClock, 1) <> Cells(startone - 1, 1)
+    
+        reverseClock = reverseClock - 1
+        Loop
+        
+        
+        
+        'Cells(startone, 6) = Format((Cells(startone - 1, 6) - Cells(reverseClock + 1, 2)), "m/d/yyyy h:mm AM/PM")
+        
+        trying = Cells(startone - 1, 6) - Cells(reverseClock + 1, 2)
+        
+        Cells(startone, 6) = trying
+        
+        
+        
+        'Cells(startOne, 8) = Format()
+        Set sumRange = Range(Cells(reverseClock + 1, 8), Cells(startone - 1, 8))
+        trying = WorksheetFunction.Sum(sumRange)
+        
+        Cells(startone, 8) = trying
+        
+        'Cells(startOne, 9) = Format()
+        Set sumRange = Range(Cells(reverseClock + 1, 9), Cells(startone - 1, 9))
+        trying = WorksheetFunction.Sum(sumRange)
+        Cells(startone, 9) = trying
+        
+        'Cells(startOne, 10) = Format()
+        Set sumRange = Range(Cells(reverseClock + 1, 10), Cells(startone - 1, 10))
+        trying = WorksheetFunction.Sum(sumRange)
+        Cells(startone, 10) = trying
+        
+       ' Cells(startOne, 11) = Format()
+        Set sumRange = Range(Cells(reverseClock + 1, 11), Cells(startone - 1, 11))
+        trying = WorksheetFunction.Sum(sumRange)
+        Cells(startone, 11) = trying
+       
+        Set sumRange = Range(Cells(reverseClock + 1, 12), Cells(startone - 1, 12))
+        Cells(startone, 12) = WorksheetFunction.Sum(sumRange)
+        
+        'Cells(startOne, 13) = Sum
+        Set sumRange = Range(Cells(reverseClock + 1, 13), Cells(startone - 1, 13))
+        Cells(startone, 13) = WorksheetFunction.Sum(sumRange)
+        
+        startone = startone + 1
+        
+        
+    
+
+        
+    
+    End If
+    
+    
+    startone = startone + 1
+    
+    Loop
+    
+
+
+
+End Sub
+
+
+
+Sub alltotalcalcu()
+
+    Dim startone As Integer
+    
+    Dim hour1 As Double
+    Dim hour2 As Double
+    Dim hour3 As Double
+    Dim hour4 As Double
+    Dim hour5 As Double
+    
+    Dim kilo1 As Long
+    Dim kilo2 As Long
+    Dim kilo3 As Long
+    
+    
+    Dim M1 As Currency
+    Dim M2 As Currency
+    
+    Dim converthour As String
+    
+
+    startone = 2
+    
+    hour1 = 0
+    hour2 = 0
+    hour3 = 0
+    hour4 = 0
+    hour5 = 0
+    kilo1 = 0
+    kilo2 = 0
+    kilo3 = 0
+    
+    
+    M1 = 0
+    M2 = 0
+    Do Until startone > 1942
+
+      If Cells(startone, 5).Value = "Roster_Total" Then
+    
+         hour1 = hour1 + Cells(startone, 6).Value
+         hour2 = hour2 + Cells(startone, 8).Value
+         hour3 = hour3 + Cells(startone, 9).Value
+         hour4 = hour4 + Cells(startone, 10).Value
+         hour5 = hour5 + Cells(startone, 11).Value
+         
+         kilo1 = kilo1 + Cells(startone, 12).Value
+         kilo2 = kilo2 + Cells(startone, 13).Value
+         
+         M1 = M1 + Cells(startone, 14).Value
+         M2 = M2 + Cells(startone, 15).Value
+
+      End If
+    
+        startone = startone + 1
+    
+    Loop
+    
+    
+    converthour = hour1
+    
+    Cells(1943, 6) = converthour
+    
+    converthour = hour2
+    Cells(1943, 8) = converthour
+    
+     converthour = hour3
+    Cells(1943, 9) = converthour
+    
+    converthour = hour4
+    Cells(1943, 10) = converthour
+    
+    
+    converthour = hour5
+    Cells(1943, 11) = converthour
+    
+    
+    Cells(1943, 12) = kilo1
+    Cells(1943, 13) = kilo2
+    
+    Cells(1943, 14) = M1
+    Cells(1943, 15) = M2
+    
+End Sub
+
+
+
+
+
+
+'NonstandbyBus saturday
+
+Sub NonstandbybusSaturday()
+
+    Dim startone As Integer
+    
+    Dim hour1 As Double
+    Dim hour2 As Double
+    Dim hour3 As Double
+    Dim hour4 As Double
+    Dim hour5 As Double
+    
+    Dim kilo1 As Long
+    Dim kilo2 As Long
+    Dim kilo3 As Long
+    
+    
+    Dim M1 As Currency
+    Dim M2 As Currency
+    
+    Dim converthour As String
+    
+
+    startone = 2
+    
+    hour1 = 0
+    hour2 = 0
+    hour3 = 0
+    hour4 = 0
+    hour5 = 0
+    kilo1 = 0
+    kilo2 = 0
+    kilo3 = 0
+    
+    
+    M1 = 0
+    M2 = 0
+    Do Until startone > 782
+
+      If Cells(startone, 5).Value = "Roster_Total" Then
+    
+         hour1 = hour1 + Cells(startone, 6).Value
+         hour2 = hour2 + Cells(startone, 8).Value
+         hour3 = hour3 + Cells(startone, 9).Value
+         hour4 = hour4 + Cells(startone, 10).Value
+         hour5 = hour5 + Cells(startone, 11).Value
+         
+         kilo1 = kilo1 + Cells(startone, 12).Value
+         kilo2 = kilo2 + Cells(startone, 13).Value
+         
+         M1 = M1 + Cells(startone, 14).Value
+         M2 = M2 + Cells(startone, 15).Value
+
+      End If
+    
+        startone = startone + 1
+    
+    Loop
+    
+    
+    converthour = hour1
+    
+    Cells(1947, 6) = converthour
+    
+    converthour = hour2
+    Cells(1947, 8) = converthour
+    
+     converthour = hour3
+    Cells(1947, 9) = converthour
+    
+    converthour = hour4
+    Cells(1947, 10) = converthour
+    
+    
+    converthour = hour5
+    Cells(1947, 11) = converthour
+    
+    
+    Cells(1947, 12) = kilo1
+    Cells(1947, 13) = kilo2
+    
+    Cells(1947, 14) = M1
+    Cells(1947, 15) = M2
+    
+End Sub
+
+
+'standbyBus saturday
+
+Sub standbybusSaturday()
+
+    Dim startone As Integer
+    
+    Dim hour1 As Double
+    Dim hour2 As Double
+    Dim hour3 As Double
+    Dim hour4 As Double
+    Dim hour5 As Double
+    
+    Dim kilo1 As Long
+    Dim kilo2 As Long
+    Dim kilo3 As Long
+    
+    
+    Dim M1 As Currency
+    Dim M2 As Currency
+    
+    Dim converthour As String
+    
+
+    startone = 782
+    
+    hour1 = 0
+    hour2 = 0
+    hour3 = 0
+    hour4 = 0
+    hour5 = 0
+    kilo1 = 0
+    kilo2 = 0
+    kilo3 = 0
+    
+    
+    M1 = 0
+    M2 = 0
+    Do Until startone > 982
+
+      If Cells(startone, 5).Value = "Roster_Total" Then
+    
+         hour1 = hour1 + Cells(startone, 6).Value
+         hour2 = hour2 + Cells(startone, 8).Value
+         hour3 = hour3 + Cells(startone, 9).Value
+         hour4 = hour4 + Cells(startone, 10).Value
+         hour5 = hour5 + Cells(startone, 11).Value
+         
+         kilo1 = kilo1 + Cells(startone, 12).Value
+         kilo2 = kilo2 + Cells(startone, 13).Value
+         
+         M1 = M1 + Cells(startone, 14).Value
+         M2 = M2 + Cells(startone, 15).Value
+
+      End If
+    
+        startone = startone + 1
+    
+    Loop
+    
+    
+    converthour = hour1
+    
+    Cells(1950, 6) = converthour
+    
+    converthour = hour2
+    Cells(1950, 8) = converthour
+    
+     converthour = hour3
+    Cells(1950, 9) = converthour
+    
+    converthour = hour4
+    Cells(1950, 10) = converthour
+    
+    
+    converthour = hour5
+    Cells(1950, 11) = converthour
+    
+    
+    Cells(1950, 12) = kilo1
+    Cells(1950, 13) = kilo2
+    
+    Cells(1950, 14) = M1
+    Cells(1950, 15) = M2
+    
+End Sub
+
+
+'NonstandbyBus sunday
+
+Sub NonstandbyBussunday()
+
+    Dim startone As Integer
+    
+    Dim hour1 As Double
+    Dim hour2 As Double
+    Dim hour3 As Double
+    Dim hour4 As Double
+    Dim hour5 As Double
+    
+    Dim kilo1 As Long
+    Dim kilo2 As Long
+    Dim kilo3 As Long
+    
+    
+    Dim M1 As Currency
+    Dim M2 As Currency
+    
+    Dim converthour As String
+    
+
+    startone = 982
+    
+    hour1 = 0
+    hour2 = 0
+    hour3 = 0
+    hour4 = 0
+    hour5 = 0
+    kilo1 = 0
+    kilo2 = 0
+    kilo3 = 0
+    
+    
+    M1 = 0
+    M2 = 0
+    Do Until startone > 1765
+
+      If Cells(startone, 5).Value = "Roster_Total" Then
+    
+         hour1 = hour1 + Cells(startone, 6).Value
+         hour2 = hour2 + Cells(startone, 8).Value
+         hour3 = hour3 + Cells(startone, 9).Value
+         hour4 = hour4 + Cells(startone, 10).Value
+         hour5 = hour5 + Cells(startone, 11).Value
+         
+         kilo1 = kilo1 + Cells(startone, 12).Value
+         kilo2 = kilo2 + Cells(startone, 13).Value
+         
+         M1 = M1 + Cells(startone, 14).Value
+         M2 = M2 + Cells(startone, 15).Value
+
+      End If
+    
+        startone = startone + 1
+    
+    Loop
+    
+    
+    converthour = hour1
+    
+    Cells(1948, 6) = converthour
+    
+    converthour = hour2
+    Cells(1948, 8) = converthour
+    
+     converthour = hour3
+    Cells(1948, 9) = converthour
+    
+    converthour = hour4
+    Cells(1948, 10) = converthour
+    
+    
+    converthour = hour5
+    Cells(1948, 11) = converthour
+    
+    
+    Cells(1948, 12) = kilo1
+    Cells(1948, 13) = kilo2
+    
+    Cells(1948, 14) = M1
+    Cells(1948, 15) = M2
+    
+End Sub
+
+
+
+'standbyBus sunday
+
+Sub standbyBussunday()
+
+    Dim startone As Integer
+    
+    Dim hour1 As Double
+    Dim hour2 As Double
+    Dim hour3 As Double
+    Dim hour4 As Double
+    Dim hour5 As Double
+    
+    Dim kilo1 As Long
+    Dim kilo2 As Long
+    Dim kilo3 As Long
+    
+    
+    Dim M1 As Currency
+    Dim M2 As Currency
+    
+    Dim converthour As String
+    
+
+    startone = 1765
+    
+    hour1 = 0
+    hour2 = 0
+    hour3 = 0
+    hour4 = 0
+    hour5 = 0
+    kilo1 = 0
+    kilo2 = 0
+    kilo3 = 0
+    
+    
+    M1 = 0
+    M2 = 0
+    Do Until startone > 1943
+
+      If Cells(startone, 5).Value = "Roster_Total" Then
+    
+         hour1 = hour1 + Cells(startone, 6).Value
+         hour2 = hour2 + Cells(startone, 8).Value
+         hour3 = hour3 + Cells(startone, 9).Value
+         hour4 = hour4 + Cells(startone, 10).Value
+         hour5 = hour5 + Cells(startone, 11).Value
+         
+         kilo1 = kilo1 + Cells(startone, 12).Value
+         kilo2 = kilo2 + Cells(startone, 13).Value
+         
+         M1 = M1 + Cells(startone, 14).Value
+         M2 = M2 + Cells(startone, 15).Value
+
+      End If
+    
+        startone = startone + 1
+    
+    Loop
+    
+    
+    converthour = hour1
+    
+    Cells(1951, 6) = converthour
+    
+    converthour = hour2
+    Cells(1951, 8) = converthour
+    
+     converthour = hour3
+    Cells(1951, 9) = converthour
+    
+    converthour = hour4
+    Cells(1951, 10) = converthour
+    
+    
+    converthour = hour5
+    Cells(1951, 11) = converthour
+    
+    
+    Cells(1951, 12) = kilo1
+    Cells(1951, 13) = kilo2
+    
+    Cells(1951, 14) = M1
+    Cells(1951, 15) = M2
+    
+End Sub
+
+
+
+
+
+
+
+
+Sub unitconver()
+
+
+    Dim startone As Integer
+    startone = 2
+    
+    
+    Do Until startone > 1953
+    
+    
+        If Cells(startone, 12) <> "" Then
+        
+        Cells(startone, 12) = Cells(startone, 12).Value / 1000
+        
+        End If
+        
+        If Cells(startone, 13) <> "" Then
+        
+        Cells(startone, 13) = Cells(startone, 13).Value / 1000
+        
+        End If
+        
+    
+    
+    startone = startone + 1
+    
+    Loop
+    
+
+
+End Sub
+
+
+
+
+
+
